@@ -1,0 +1,173 @@
+.dashboard {
+  padding: 2rem;
+  background: #fdf195;
+  min-height: calc(100vh - 64px);
+}
+
+.dashboard-main {
+  display: grid;
+  grid-template-columns: 300px 1fr 350px;
+  gap: 2rem;
+  max-width: 700px; /* Increased from 750px */
+  margin: 0 auto;
+}
+
+.dashboard-widgets {
+  display: grid;
+  grid-template-columns: 220px 1fr 300px; /* Reduced first column from 300px to 220px */
+  grid-template-rows: 180px 200px;        /* Reduce row height if needed */
+  gap: 22px;
+  margin-top: 30px;
+}
+
+.widget {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  padding: 24px;
+  min-height: 130px;
+}
+
+.categories-widget {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 220px;
+  max-width: 320px;
+  min-height: 140px;
+  padding: 20px;
+}
+
+.calendar-widget {
+  font-size: 0.9em;        /* Shrink overall text */
+}
+
+.calendar-widget .calendar-days,
+.calendar-widget .calendar-dates {
+  font-size: 0.78em;       /* Shrink individual date sizes */
+}
+
+.calendar-widget td, 
+.calendar-widget th {
+  padding: 1px 2px;        /* Make calendar cells smaller */
+}
+
+.tasks-widget, .tracking-widget {
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+.comments-widget { 
+  grid-column: 3; 
+  grid-row: 1/3;
+  width: 301.3px; /* Exact target size */
+}
+
+.dashboard-left,
+.dashboard-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-center {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1200px) {
+  .dashboard-main {
+    grid-template-columns: 280.3px 1fr 320.3px; /* Adjusted proportionally */
+    gap: 1.5rem;
+  }
+  
+  .dashboard-widgets {
+    grid-template-columns: 280.3px 1fr 280.3px;
+  }
+}
+
+@media (max-width: 992px) {
+  .dashboard {
+    padding: 1rem;
+  }
+
+  .dashboard-main {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .dashboard-left,
+  .dashboard-right {
+    order: 2;
+  }
+
+  .dashboard-center {
+    order: 1;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 0.5rem;
+  }
+
+  .dashboard-main {
+    gap: 1rem;
+  }
+}
+
+.dashboard {
+  margin-top: 19;
+  padding-top: -8rem; /* optional */
+}
+
+@media (max-width: 1200px) {
+  .dashboard-main {
+    grid-template-columns: 280.3px 1fr 320.3px; /* Adjusted proportionally */
+    gap: 1.5rem;
+  }
+  
+  .dashboard-widgets {
+    grid-template-columns: 280.3px 1fr 280.3px;
+  }
+}
+
+@media (max-width: 992px) {
+  .dashboard {
+    padding: 1rem;
+  }
+
+  .dashboard-main {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .dashboard-left,
+  .dashboard-right {
+    order: 2;
+  }
+
+  .dashboard-center {
+    order: 1;
+  }
+}
+
+.dashboard img {
+  width: 71.3px; /* Target size */
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* For avatar or logo images */
+.sidebar .avatar {
+  width: 38.2px; /* Increased by 0.2px */
+  height: 38.2px;
+  background: #ffd84d;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+

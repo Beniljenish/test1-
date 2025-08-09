@@ -1,39 +1,29 @@
 import React from 'react';
-import './Button.css';
+import './Button.css'; // make sure this path is correct
 
-const Button = ({ 
-  children, 
-  onClick, 
-  type = 'button', 
-  variant = 'primary', 
-  size = 'medium',
+const Button = ({
+  children,
+  type = 'button',
+  variant = 'primary',
   fullWidth = false,
   loading = false,
+  onClick,
   disabled = false,
-  className = '',
-  ...props 
+  className = ''
 }) => {
-  const buttonClass = [
-    'btn',
-    `btn-${variant}`,
-    `btn-${size}`,
-    fullWidth ? 'btn-full-width' : '',
-    loading ? 'btn-loading' : '',
-    className
-  ].filter(Boolean).join(' ');
-
+  const btnClass = `btn btn-${variant}${fullWidth ? ' btn-full-width' : ''} ${className}`;
   return (
     <button
       type={type}
-      className={buttonClass}
+      className={btnClass}
       onClick={onClick}
       disabled={disabled || loading}
-      {...props}
     >
-      {loading ? (
-        <span className="btn-loader"></span>
-      ) : (
-        children
+      {loading ? 'Loading…' : (
+        <>
+          
+          <span>{children}</span>
+        </>
       )}
     </button>
   );

@@ -1,198 +1,328 @@
-/* Container */
-.profile-container {
+.profile-wrapper {
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  background: #fafafa;
+  min-height: 100vh;
+}
+
+.profile-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.profile-card {
   background: #fff;
   border-radius: 16px;
-  padding: 24px;
-  max-width: 400px;
-  margin: 40px auto;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-  font-family: 'Inter', Arial, sans-serif;
-}
-
-/* Title */
-.profile-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-/* Photo section */
-.profile-photo-section {
+  padding: 32px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
+  gap: 32px;
+}
+
+/* Two column layout for each row */
+.profile-row-grid {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+/* Section heading on the left */
+.profile-section-heading {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+  padding-top: 6px;
+}
+
+/* Profile Photo Block */
+.profile-photo-block {
+  display: flex;
+  gap: 24px;
   align-items: center;
-  margin-bottom: 32px;
-  border-bottom: 1px solid #ebeef2;
-  padding-bottom: 24px;
 }
 
 .profile-photo {
-  width: 50.8px;
-  height: 50.8px;
-  border-radius: 8px;
+  width: 96px;
+  height: 96px;
   object-fit: cover;
-  background: #eeec71;
-  margin-bottom: 12px;
-  transition: box-shadow .2s, transform .15s ease;
-  cursor: pointer;
+  border-radius: 12px;
+  background: #f1f1f1;
 }
 
-.profile-photo:hover {
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
-  transform: scale(1.05);
-}
-
-/* Upload button + info */
-.profile-upload-btn {
-  padding: 8px 18px;
-  background: #f7f7f7;
-  border: 1px solid #e8e8e8;
+/* Upload */
+.upload-btn {
+  padding: 8px 16px;
   border-radius: 20px;
-  font-size: 0.875rem;
+  background: #fff;
+  border: 1px solid #ccc;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  margin-bottom: 8px;
-  transition: background .2s, transform .15s ease;
 }
 
-.profile-upload-btn:hover {
-  background: #eaeaea;
-  transform: scale(1.02);
+.upload-btn:hover {
+  background: #f4f4f4;
 }
 
-.profile-upload-info {
-  font-size: 0.75rem;
-  color: #838383;
-  text-align: center;
-  margin-bottom: 0;
+.upload-info {
+  font-size: 12px;
+  color: #777;
+  margin-top: 6px;
 }
 
-/* Form sections */
-.profile-section {
+/* Contact input field */
+.profile-input-block {
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
+  gap: 8px;
 }
 
 .profile-label {
-  font-size: 0.875rem;
+  font-size: 13px;
   font-weight: 500;
-  color: #272727;
-  margin-bottom: 8px;
+  color: #111;
 }
 
 .profile-input {
-  width: 100%;
-  padding: 12px;
-  font-size: 0.875rem;
-  border: 1px solid #e1e0e0;
-  border-radius: 12px;
-  background: #fafafa;
-  transition: border-color .2s;
-  box-sizing: border-box;
+  padding: 6px 8px;
+  font-size: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f5f5f5;
+  width: 260px;
 }
-
 .profile-input:focus {
-  border-color: #1582d1;
-  outline: none;
+  outline: 2px solid #1582d1;
 }
 
-/* Email row */
-.profile-email-row {
+/* Email section */
+.email-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 }
 
-.profile-email {
-  font-size: 0.875rem;
-  font-weight: 500;
+.email-value {
+  font-size: 14px;
   color: #1582d1;
-}
-
-.profile-change-email-btn {
-  padding: 8px 18px;
-  font-size: 0.875rem;
   font-weight: 500;
-  color: #272727;
-  background: #fff;
-  border: 1px solid #dadada;
+}
+
+.change-email-btn {
+  padding: 8px 16px;
   border-radius: 20px;
+  background: #fff;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background .2s;
 }
 
-.profile-change-email-btn:hover {
-  background: #f7f7f7;
+.change-email-btn:hover {
+  background: #f2f2f2;
 }
 
-/* Action buttons */
-.profile-actions {
+/* Centered action buttons */
+.action-buttons-centered {
   display: flex;
-  gap: 12px;
-  margin-top: 32px;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
 }
 
-.profile-cancel-btn,
-.profile-save-btn {
-  flex: 1;
-  padding: 12px;
-  font-size: 0.875rem;
+.cancel-btn,
+.save-btn {
+  padding: 12px 24px;
+  font-size: 14px;
   font-weight: 500;
-  border-radius: 20px;
+  border-radius: 24px;
   cursor: pointer;
-  transition: background .2s, transform .15s ease;
+  transition: 0.2s ease;
 }
 
-.profile-cancel-btn {
+.cancel-btn {
   background: #fff;
-  border: 1px solid #cccccc;
-  color: #2d2d2d;
+  border: 1px solid #ccc;
 }
 
-.profile-cancel-btn:hover {
-  background: #f7f7f7;
-  transform: scale(1.02);
+.cancel-btn:hover {
+  background: #f5f5f5;
 }
 
-.profile-save-btn {
+.save-btn {
   background: #ffe46c;
   border: none;
-  color: #1a1a1a;
+  color: #000;
   font-weight: 600;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.profile-save-btn:hover {
-  background: #ffda6a;
-  transform: scale(1.02);
+.save-btn:hover {
+  background: #fddc60;
 }
 
-/* Keyboard focus */
-.profile-upload-btn:focus,
-.profile-change-email-btn:focus,
-.profile-cancel-btn:focus,
-.profile-save-btn:focus,
-.profile-input:focus {
-  outline: 2px solid #1582d1;
-  outline-offset: 2px;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .profile-container {
-    padding: 16px;
-    margin: 20px 16px;
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 1rem;
+    gap: 1.5rem;
+    margin: 0.5rem;
+    border-radius: 12px;
   }
-  .profile-actions {
-    flex-direction: column;
-    gap: 8px;
+
+  .profile-title {
+    font-size: 20px;
+    margin-bottom: 1rem;
+    text-align: center;
   }
-  .profile-email-row {
+
+  /* Convert grid to stacked layout on mobile */
+  .profile-row-grid {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .profile-section-heading {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 0.5rem;
+    padding-top: 0;
+  }
+
+  /* Mobile photo block */
+  .profile-photo-block {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+  }
+
+  .upload-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .upload-info {
+    font-size: 11px;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  /* Mobile input styling */
+  .profile-input-block {
+    gap: 0.5rem;
+  }
+
+  .profile-label {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .profile-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  /* Mobile email section */
+  .email-row {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .email-value {
+    font-size: 14px;
+    padding: 8px 0;
+    text-align: center;
+  }
+
+  .change-email-btn {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 100%;
+  }
+
+  /* Mobile action buttons */
+  .action-buttons-centered {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .cancel-btn,
+  .save-btn {
+    padding: 14px 20px;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 100%;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 0.75rem;
+    margin: 0.25rem;
+    gap: 1.25rem;
+  }
+
+  .profile-title {
+    font-size: 18px;
+    margin-bottom: 0.75rem;
+  }
+
+  .profile-photo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .profile-input {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .cancel-btn,
+  .save-btn {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 991px) and (min-width: 769px) {
+  .profile-card {
+    padding: 1.5rem;
+    gap: 1.75rem;
+  }
+
+  .profile-row-grid {
+    grid-template-columns: 160px 1fr;
+    gap: 1.5rem;
+  }
+
+  .profile-input {
+    width: 100%;
+    max-width: 300px;
   }
 }

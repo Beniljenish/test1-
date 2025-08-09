@@ -31,3 +31,9 @@
     transform: rotate(360deg);
   }
 }
+
+html, body {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden; /* THIS removes all scrollbars */
+}

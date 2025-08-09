@@ -1,129 +1,68 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './NotificationPage.css';
 
 export default function NotificationPage() {
-  const navigate = useNavigate();
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [selectedId, setSelectedId] = useState(1);
 
   const notifications = [
-    {
-      id: 1,
-      type: 'task',
-      title: 'Company research',
-      message: 'John Deere added a new task.',
-      time: '2 minutes ago',
-      isRead: false,
-      avatar: '👤'
-    },
-    {
-      id: 2,
-      type: 'task',
-      title: 'Company research',
-      message: 'John Deere marked the task complete.',
-      time: '5 minutes ago',
-      isRead: true,
-      avatar: '👤'
-    },
-    {
-      id: 3,
-      type: 'task',
-      title: 'Market ideation',
-      message: 'John Deere marked the task complete.',
-      time: '10 minutes ago',
-      isRead: true,
-      avatar: '👤'
-    },
-    {
-      id: 4,
-      type: 'task',
-      title: 'Illustrations invoicing',
-      message: 'John Deere marked the task on hold.',
-      time: '15 minutes ago',
-      isRead: false,
-      avatar: '👤'
-    },
-    {
-      id: 5,
-      type: 'task',
-      title: 'Yearly wrap-up',
-      message: 'John Deere marked the task complete.',
-      time: '20 minutes ago',
-      isRead: true,
-      avatar: '👤'
-    }
+    { id: 1, title: 'Company research', message: 'John Deere added a new task.', isRead: false, completed: false },
+    { id: 2, title: 'Company research', message: 'John Deere marked the task complete.', isRead: true, completed: true },
+    { id: 3, title: 'Market ideation', message: 'John Deere marked the task complete.', isRead: true, completed: true },
+    { id: 4, title: 'Illustrations invoicing', message: 'John Deere marked the task on hold.', isRead: false, completed: false },
+    { id: 5, title: 'Yearly wrap-up', message: 'John Deere marked the task complete.', isRead: true, completed: true },
   ];
 
-  const filteredNotifications = notifications.filter(notification => {
-    if (activeFilter === 'unread') return !notification.isRead;
-    return true;
-  });
-
-  const markAsRead = (id) => {
-    // Handle marking notification as read
-    console.log('Mark as read:', id);
-  };
-
-  const markAllAsRead = () => {
-    // Handle marking all notifications as read
-    console.log('Mark all as read');
-  };
+  const selectedTask = notifications.find(n => n.id === selectedId);
 
   return (
-    <div className="notification-container">
-      <div className="notification-header">
-        <h1 className="notification-title">Latest notifications</h1>
-        <div className="notification-actions">
-          <button className="mark-all-read-btn" onClick={markAllAsRead}>
-            Mark all as read
-          </button>
-          <button className="notification-settings-btn">
-            ⚙️
-          </button>
+    <div className="notification-page">
+      <div className="notification-left">
+        <h3 className="notif-heading">Latest notifications</h3>
+        <div className="notif-list">
+          {notifications.map(n => (
+            <div
+              key={n.id}
+              className={`notif-card ${n.id === selectedId ? 'active' : ''}`}
+              onClick={() => setSelectedId(n.id)}
+            >
+              <div className="notif-icon">
+                {n.completed ? <span className="checkmark">✔</span> : <span className="circle" />}
+              </div>
+              <div className="notif-content">
+                <div className={`notif-title ${n.completed ? 'strike' : ''}`}>{n.title}</div>
+                <div className="notif-msg">{n.message}</div>
+              </div>
+              <img className="notif-avatar" src="https://i.pravatar.cc/32" alt="avatar" />
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="notification-filters">
-        <button 
-          className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
-          onClick={() => setActiveFilter('all')}
-        >
-          All
-        </button>
-        <button 
-          className={`filter-btn ${activeFilter === 'unread' ? 'active' : ''}`}
-          onClick={() => setActiveFilter('unread')}
-        >
-          Unread
-        </button>
-      </div>
+      <div className="notification-right">
+        <div className="task-title-bar">
+          <div className="task-heading">{selectedTask.title}</div>
+          <div className="task-close">✕</div>
+        </div>
 
-      <div className="notification-list">
-        {filteredNotifications.map(notification => (
-          <div 
-            key={notification.id} 
-            className={`notification-item ${!notification.isRead ? 'unread' : ''}`}
-            onClick={() => markAsRead(notification.id)}
-          >
-            <div className="notification-status">
-              {!notification.isRead && <div className="unread-indicator"></div>}
-            </div>
-            
-            <div className="notification-content">
-              <div className="notification-text">
-                <span className="notification-task-title">{notification.title}</span>
-                <span className="notification-message">{notification.message}</span>
-              </div>
-              <div className="notification-time">{notification.time}</div>
-            </div>
+        <div className="task-detail"><span>👤 Assignee</span><span className="pill">Me</span></div>
+        <div className="task-detail"><span>🗓️ Deadline</span><span className="pill dark">Today</span></div>
+        <div className="task-detail"><span>📁 Projects</span><span className="pill light">Secret project</span></div>
+        <div className="task-detail"><span>⚙️ Priority</span><span className="pill yellow">Medium</span></div>
 
-            <div className="notification-avatar">
-              <div className="avatar-circle">
-                {notification.avatar}
-              </div>
-            </div>
-          </div>
-        ))}
+        <div className="section-box">
+          <h4>Attachments</h4>
+          <div className="section-row"><span>📎 No attachments</span><button>Attach</button></div>
+        </div>
+
+        <div className="section-box">
+          <h4>Links</h4>
+          <div className="section-row"><span>🔗 No links</span><button>Add</button></div>
+        </div>
+
+        <div className="task-actions">
+          <button className="btn outline">📁 Archive task</button>
+          <button className="btn danger">🗑️ Delete task</button>
+        </div>
       </div>
     </div>
   );

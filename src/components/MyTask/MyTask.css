@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --yellow: #fee56c;
+  --yellow-light: #fff6db;
+  --grey-line: #eaeaea;
+  --font: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+}
+
+.task-page-wrapper {
+  padding: 1px 1px;
+  width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.tasks-wrapper {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.tasks-section {
+  margin-bottom: 10px;
+}
+
+.tasks-section h3 {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 14px;
+  margin: 0;
+  color: #333;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 16px 1fr 70px 80px 65px 80px 30px;
+  align-items: center;
+  padding: 6px 14px;
+  font-size: 11.5px;
+  border-bottom: 1px solid var(--grey-line);
+  min-height: 29px;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row.head {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #868686;
+  background: #fafafa;
+  padding: 4px 14px;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 11.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 10.5px;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.stage.in-progress {
+  background: var(--yellow-light);
+  color: #8d7424;
+}
+
+.stage.not-started {
+  background: #f0f0f0;
+  color: #8d8d8d;
+}
+
+.priority.high {
+  background: #e8b374;
+  color: #643600;
+}
+
+.priority.medium {
+  background: var(--yellow);
+  color: #5b5500;
+}
+
+.priority.low {
+  background: #e3eefc;
+  color: #1a57b8;
+}
+
+.due {
+  font-weight: 500;
+  font-size: 11px;
+  color: #444;
+}
+
+.team {
+  color: #626262;
+  font-size: 10.5px;
+}
+
+.avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Mobile Responsive Styles - Only applies to screens smaller than 768px */
+@media (max-width: 767px) {
+  .task-page-wrapper {
+    padding: 8px;
+  }
+  
+  .tasks-wrapper {
+    padding: 0;
+    border-radius: 8px;
+  }
+  
+  .tasks-section {
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--grey-line);
+  }
+  
+  .tasks-section:last-child {
+    border-bottom: none;
+  }
+  
+  .tasks-section h3 {
+    font-size: 14px;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-bottom: 1px solid var(--grey-line);
+    margin: 0;
+  }
+  
+  /* Hide table header on mobile */
+  .row.head {
+    display: none;
+  }
+  
+  /* Transform grid rows into mobile cards */
+  .row:not(.head) {
+    display: block;
+    padding: 16px;
+    border-bottom: 1px solid var(--grey-line);
+    background: #fff;
+    position: relative;
+  }
+  
+  .row:not(.head):hover {
+    background: #f8f9fa;
+  }
+  
+  /* Mobile card layout */
+  .row:not(.head) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  /* Card header with checkbox, title and avatar */
+  .row:not(.head)::before {
+    content: '';
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    order: -1;
+  }
+  
+  .row:not(.head) input[type="checkbox"] {
+    order: 1;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .row:not(.head) .title {
+    order: 2;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: normal;
+    line-height: 1.4;
+    flex: 1;
+    margin-bottom: 8px;
+  }
+  
+  .row:not(.head) .avatar {
+    order: 3;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+  
+  /* Mobile info rows */
+  .row:not(.head) .due,
+  .row:not(.head) .team {
+    order: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin: 4px 0;
+  }
+  
+  .row:not(.head) .due::before {
+    content: 'Due: ';
+    font-weight: 600;
+    color: #666;
+  }
+  
+  .row:not(.head) .team::before {
+    content: 'Team: ';
+    font-weight: 600;
+    color: #666;
+  }
+  
+  /* Mobile badges container */
+  .row:not(.head) .badge {
+    order: 5;
+    display: inline-block;
+    margin-right: 8px;
+    margin-top: 8px;
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+  
+  /* Ensure badges appear in the same row */
+  .row:not(.head) .badge.stage {
+    margin-right: 8px;
+  }
+  
+  .row:not(.head) .badge.priority {
+    margin-right: 0;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 991px) and (min-width: 768px) {
+  .task-page-wrapper {
+    padding: 12px;
+  }
+  
+  .row {
+    grid-template-columns: 16px 1fr 80px 90px 75px 90px 32px;
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+  
+  .row.head {
+    padding: 6px 16px;
+    font-size: 11px;
+  }
+  
+  .title {
+    font-size: 12px;
+  }
+  
+  .avatar {
+    width: 24px;
+    height: 24px;
+  }
+}

@@ -1,34 +1,29 @@
 import React from 'react';
-import Layout from '../Layout/Layout';
+import './Dashboard.css';
 import Calendar from './Calendar/Calendar';
-import TaskList from './TaskList/TaskList';
 import Categories from './Categories/Categories';
+import TaskList from './TaskList/TaskList';
 import TimeTracking from './TimeTracking/TimeTracking';
 import Comments from './Comments/Comments';
-import './Dashboard.css';
 
-const Dashboard = () => {
+export default function Dashboard() {
   return (
-    <Layout>
-      <div className="dashboard">
-        <div className="dashboard-main">
-          <div className="dashboard-left">
-            <Calendar />
-            <Categories />
-          </div>
+    <div className="dashboard-container">
+      <div className="dashboard-grid">
+        <div className="left-column">
+          <Calendar />
+          <Categories />
+        </div>
 
-          <div className="dashboard-center">
-            <TaskList />
-          </div>
+        <div className="center-column">
+          <TaskList />
+          <TimeTracking />
+        </div>
 
-          <div className="dashboard-right">
-            <TimeTracking />
-            <Comments />
-          </div>
+        <div className="right-column">
+          <Comments />
         </div>
       </div>
-    </Layout>
+    </div>
   );
-};
-
-export default Dashboard;
+}

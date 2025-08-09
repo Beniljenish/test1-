@@ -15,12 +15,14 @@ const Comments = () => {
       <div className="comments-list">
         {comments.map(comment => (
           <div key={comment.id} className="comment-item">
-            <div className="comment-header">
-              <span className="comment-type">{comment.type}</span>
-              <span className="comment-time">{comment.time}</span>
-              {comment.isNew && <span className="new-indicator"></span>}
+            <div className="comment-main">
+              <div className="comment-meta">
+                <strong className="comment-title">{comment.type}</strong>
+                {comment.isNew && <span className="new-dot" />}
+              </div>
+              <p className="comment-message">{comment.message}</p>
             </div>
-            <p className="comment-message">{comment.message}</p>
+            <span className="comment-arrow">›</span>
           </div>
         ))}
       </div>

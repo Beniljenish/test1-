@@ -1,173 +1,186 @@
-.dashboard {
-  padding: 2rem;
-  background: #fdf195;
-  min-height: calc(100vh - 64px);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --yellow: #fee56c;
+  --white: #ffffff;
+  --font: 'Inter', sans-serif;
 }
 
-.dashboard-main {
-  display: grid;
-  grid-template-columns: 300px 1fr 350px;
-  gap: 2rem;
-  max-width: 700px; /* Increased from 750px */
-  margin: 0 auto;
-}
-
-.dashboard-widgets {
-  display: grid;
-  grid-template-columns: 220px 1fr 300px; /* Reduced first column from 300px to 220px */
-  grid-template-rows: 180px 200px;        /* Reduce row height if needed */
-  gap: 22px;
-  margin-top: 30px;
-}
-
-.widget {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-  padding: 24px;
-  min-height: 130px;
-}
-
-.categories-widget {
-  grid-column: 1;
-  grid-row: 2;
-  min-width: 220px;
-  max-width: 320px;
-  min-height: 140px;
-  padding: 20px;
-}
-
-.calendar-widget {
-  font-size: 0.9em;        /* Shrink overall text */
-}
-
-.calendar-widget .calendar-days,
-.calendar-widget .calendar-dates {
-  font-size: 0.78em;       /* Shrink individual date sizes */
-}
-
-.calendar-widget td, 
-.calendar-widget th {
-  padding: 1px 2px;        /* Make calendar cells smaller */
-}
-
-.tasks-widget, .tracking-widget {
-  width: 100%;
+* {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
-.comments-widget { 
-  grid-column: 3; 
-  grid-row: 1/3;
-  width: 301.3px; /* Exact target size */
+
+html, body, #root {
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--font);
 }
 
-.dashboard-left,
-.dashboard-right {
+/* ======================= */
+/* Desktop Dashboard Layout */
+/* ======================= */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 1.2fr;
+  gap: 1rem;
+  height: 100vh;
+  padding: 0 1rem;
+  overflow: hidden;
+}
+
+/* Columns */
+.left-column,
+.center-column,
+.right-column {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  overflow: hidden;
 }
 
-.dashboard-center {
-  display: flex;
-  flex-direction: column;
+/* Widgets */
+.left-column > *,
+.center-column > *,
+.right-column > * {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  font-size: 0.80rem;
+  line-height: 1.2;
+  overflow: hidden;
+  scrollbar-width: thin;
 }
 
-@media (max-width: 1200px) {
-  .dashboard-main {
-    grid-template-columns: 280.3px 1fr 320.3px; /* Adjusted proportionally */
-    gap: 1.5rem;
+/* Widget titles */
+.left-column h2,
+.center-column h2,
+.right-column h2 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+/* Suggested Widget Heights */
+.left-column > :first-child { min-height: 220px; }   /* Calendar */
+.left-column > :last-child  { min-height: 240px; }   /* Categories */
+
+.center-column > :first-child { min-height: 220px; } /* TaskList */
+.center-column > :last-child  { min-height: 240px; } /* TimeTracking */
+
+.right-column > * { min-height: 480px; }             /* Comments */
+
+/* Prevent unwanted scrollbars */
+.left-column > *,
+.center-column > *,
+.right-column > * {
+  overflow: hidden !important;
+}
+
+/* Dashboard widget container */
+.dashboard-widget {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* =================== */
+/* ✅ Mobile Responsive */
+/* =================== */
+/* 📱 Mobile Layout Fix */
+@media (max-width: 768px) {
+  html, body, #root {
+    height: auto;
+    overflow: auto;
   }
-  
-  .dashboard-widgets {
-    grid-template-columns: 280.3px 1fr 280.3px;
-  }
-}
 
-@media (max-width: 992px) {
-  .dashboard {
+  .dashboard-container {
+    display: block;
+    overflow-x: hidden;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  .dashboard-grid {
+    display: block;
+    grid-template-columns: none;
+    gap: 0;
+    height: auto;
+    padding: 0.75rem;
+    overflow: visible;
+  }
+
+  .left-column,
+  .center-column,
+  .right-column {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 0;
+    gap: 0.75rem;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ensure all widgets are visible */
+  .left-column > *,
+  .center-column > *,
+  .right-column > * {
+    background: var(--white);
+    border-radius: 12px;
     padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    overflow: visible;
+    margin-bottom: 0.75rem;
+    height: auto;
   }
 
-  .dashboard-main {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  /* Remove fixed heights on mobile */
+  .left-column > :first-child,
+  .left-column > :last-child,
+  .center-column > :first-child,
+  .center-column > :last-child,
+  .right-column > * {
+    min-height: unset;
+    height: auto;
   }
 
-  .dashboard-left,
-  .dashboard-right {
+  /* Mobile widget order */
+  .left-column {
+    order: 1;
+  }
+
+  .center-column {
     order: 2;
   }
 
-  .dashboard-center {
-    order: 1;
+  .right-column {
+    order: 3;
   }
 }
 
-
-@media (max-width: 768px) {
-  .dashboard {
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .dashboard-grid {
     padding: 0.5rem;
   }
 
-  .dashboard-main {
-    gap: 1rem;
+  .left-column > *,
+  .center-column > *,
+  .right-column > * {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
   }
 }
 
-.dashboard {
-  margin-top: 19;
-  padding-top: -8rem; /* optional */
-}
-
-@media (max-width: 1200px) {
-  .dashboard-main {
-    grid-template-columns: 280.3px 1fr 320.3px; /* Adjusted proportionally */
-    gap: 1.5rem;
-  }
-  
-  .dashboard-widgets {
-    grid-template-columns: 280.3px 1fr 280.3px;
+/* Tablet adjustments */
+@media (max-width: 991px) and (min-width: 769px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 0.75rem;
+    padding: 0 0.75rem;
   }
 }
-
-@media (max-width: 992px) {
-  .dashboard {
-    padding: 1rem;
-  }
-
-  .dashboard-main {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .dashboard-left,
-  .dashboard-right {
-    order: 2;
-  }
-
-  .dashboard-center {
-    order: 1;
-  }
-}
-
-.dashboard img {
-  width: 71.3px; /* Target size */
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-/* For avatar or logo images */
-.sidebar .avatar {
-  width: 38.2px; /* Increased by 0.2px */
-  height: 38.2px;
-  background: #ffd84d;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.1em;
-}
-

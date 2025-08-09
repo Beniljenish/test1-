@@ -1,24 +1,12 @@
+import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
 
-  if (loading) {
-    return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        fontSize: '18px',
-        color: '#666'
-      }}>
-        Loading...
-      </div>
-    );
-  }
-
+  // Simply redirect to login if not authenticated
+  // Loading is handled at the app level
   return user ? children : <Navigate to="/login" replace />;
 };
 

@@ -30,7 +30,7 @@ const TaskList = () => {
         {Object.entries(groupedTasks).map(([date, dateTasks]) => (
           <div key={date} className="task-group">
             <div className="task-group-header">
-              <h4>{date}</h4>
+              
             </div>
             <div className="task-items">
               {dateTasks.map(task => (

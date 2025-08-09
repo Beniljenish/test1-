@@ -1,20 +1,26 @@
 .comments-widget {
   background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: inline-flex;         /* ✅ shrink-wrap the content */
+  flex-direction: column;
+  height: auto;                 /* ✅ content determines height */
+  width: 100%;                  /* or specific width if needed */
+  box-sizing: border-box;
 }
+
 
 .comments-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .comments-header h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #333;
 }
@@ -23,69 +29,85 @@
   background: none;
   border: none;
   color: #666;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   cursor: pointer;
-  padding: 0.25rem;
+  padding: 0.2rem;
 }
 
 .add-btn:hover {
-  color: #333;
+  color: #000;
 }
 
 .comments-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
 }
+
 
 .comment-item {
-  border-left: 3px solid #FFD93D;
-  padding-left: 1rem;
-}
-
-.comment-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
-  position: relative;
+  border-left: 3px solid #FFD93D;
+  padding-left: 0.75rem;
+  cursor: pointer;
 }
 
-.comment-type {
+.comment-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.comment-title {
   font-size: 0.85rem;
-  font-weight: 600;
   color: #333;
 }
 
-.comment-time {
-  font-size: 0.8rem;
-  color: #666;
-}
-
-.new-indicator {
-  position: absolute;
-  right: -8px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
+.new-dot {
+  width: 6px;
+  height: 6px;
   background: #FFD93D;
   border-radius: 50%;
 }
 
 .comment-message {
-  margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #666;
-  line-height: 1.4;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.comment-arrow {
+  font-size: 1.2rem;
+  color: #999;
+  margin-left: 0.75rem;
 }
 
 @media (max-width: 768px) {
   .comments-widget {
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   .comment-item {
-    padding-left: 0.75rem;
+    padding-left: 0.5rem;
+  }
+
+  .comment-title {
+    font-size: 0.8rem;
+  }
+
+  .comment-message {
+    font-size: 0.75rem;
   }
 }
+

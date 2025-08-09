@@ -15,42 +15,37 @@ body {
 }
 
 .task-page-wrapper {
-  padding: 1px 1px;
+  padding: 0;
   width: 100%;
+  min-height: 100vh;
   box-sizing: border-box;
-  display: grid;
-  grid-template-rows: auto 1fr;
+  background: #f8f9fb;
 }
 
 .tasks-wrapper {
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-  padding: 10px;
-  overflow-y: auto;
-  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
 }
 
 .tasks-section {
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .tasks-section h3 {
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 14px;
-  margin: 0;
-  color: #333;
+  display: none;
 }
 
 .row {
   display: grid;
-  grid-template-columns: 16px 1fr 70px 80px 65px 80px 30px;
+  grid-template-columns: 32px 2fr 120px 100px 100px 120px 60px;
   align-items: center;
-  padding: 6px 14px;
-  font-size: 11.5px;
-  border-bottom: 1px solid var(--grey-line);
-  min-height: 29px;
+  padding: 12px 24px;
+  font-size: 14px;
+  border-bottom: 1px solid #f4f5f7;
+  min-height: 60px;
+  background: #fff;
 }
 
 .row:last-child {
@@ -58,70 +53,111 @@ body {
 }
 
 .row.head {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  color: #868686;
-  background: #fafafa;
-  padding: 4px 14px;
+  background: #fafbfc;
+  color: #6b778c;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #dfe1e6;
+  padding: 12px 24px;
+  min-height: 44px;
+}
+
+.row.head .title {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b778c;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .title {
   font-weight: 500;
-  font-size: 11.5px;
+  font-size: 14px;
+  color: #172b4d;
+  line-height: 1.3;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+.title.section-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #172b4d;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: initial;
+}
+
+.title.clickable {
+  cursor: pointer;
+  color: #172b4d;
+  text-decoration: none;
+}
+
+.title.clickable:hover {
+  color: #026aa7;
+  text-decoration: none;
+}
+
 .badge {
-  padding: 2px 6px;
-  border-radius: 8px;
-  font-size: 10.5px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
   font-weight: 500;
   text-align: center;
   white-space: nowrap;
+  border: none;
 }
 
 .stage.in-progress {
-  background: var(--yellow-light);
-  color: #8d7424;
+  background: #fff7d6;
+  color: #b8860b;
+}
+
+.stage.completed {
+  background: #e8f5e8;
+  color: #2d7d32;
 }
 
 .stage.not-started {
-  background: #f0f0f0;
-  color: #8d8d8d;
+  background: #f0f4f8;
+  color: #5e6c84;
 }
 
 .priority.high {
-  background: #e8b374;
-  color: #643600;
+  background: #ffebee;
+  color: #d32f2f;
 }
 
 .priority.medium {
-  background: var(--yellow);
-  color: #5b5500;
+  background: #fff8e1;
+  color: #f57c00;
 }
 
 .priority.low {
-  background: #e3eefc;
-  color: #1a57b8;
+  background: #e8f5e8;
+  color: #2d7d32;
 }
 
 .due {
-  font-weight: 500;
-  font-size: 11px;
-  color: #444;
+  font-weight: 400;
+  font-size: 13px;
+  color: #f57c00;
 }
 
 .team {
-  color: #626262;
-  font-size: 10.5px;
+  color: #6b778c;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .avatar {
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -129,12 +165,13 @@ body {
 /* Mobile Responsive Styles - Only applies to screens smaller than 768px */
 @media (max-width: 767px) {
   .task-page-wrapper {
-    padding: 8px;
+    padding: 0;
+    min-height: 100vh;
   }
   
   .tasks-wrapper {
     padding: 0;
-    border-radius: 8px;
+    border-radius: 0;
   }
   
   .tasks-section {
@@ -147,11 +184,7 @@ body {
   }
   
   .tasks-section h3 {
-    font-size: 14px;
-    padding: 12px 16px;
-    background: #f8f9fa;
-    border-bottom: 1px solid var(--grey-line);
-    margin: 0;
+    display: none;
   }
   
   /* Hide table header on mobile */
@@ -159,10 +192,10 @@ body {
     display: none;
   }
   
-  /* Transform grid rows into mobile cards */
+  /* Convert each task row to a mobile card */
   .row:not(.head) {
     display: block;
-    padding: 16px;
+    padding: 12px;
     border-bottom: 1px solid var(--grey-line);
     background: #fff;
     position: relative;
@@ -172,105 +205,85 @@ body {
     background: #f8f9fa;
   }
   
-  /* Mobile card layout */
-  .row:not(.head) {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  /* Card header with checkbox, title and avatar */
-  .row:not(.head)::before {
-    content: '';
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    order: -1;
-  }
-  
+  /* Mobile task card layout */
   .row:not(.head) input[type="checkbox"] {
-    order: 1;
-    width: 18px;
-    height: 18px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 16px;
+    height: 16px;
   }
   
   .row:not(.head) .title {
-    order: 2;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
-    white-space: normal;
-    line-height: 1.4;
-    flex: 1;
-    margin-bottom: 8px;
+    line-height: 1.3;
+    margin: 0 0 8px 35px; /* Space for checkbox */
+    padding-right: 45px; /* Space for avatar */
   }
   
   .row:not(.head) .avatar {
-    order: 3;
-    width: 32px;
-    height: 32px;
     position: absolute;
-    top: 16px;
-    right: 16px;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
   }
   
-  /* Mobile info rows */
-  .row:not(.head) .due,
-  .row:not(.head) .team {
-    order: 4;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    margin: 4px 0;
+  /* Task details in mobile */
+  .row:not(.head) .due {
+    display: block;
+    font-size: 12px;
+    margin: 6px 0 6px 35px;
+    color: #666;
   }
   
   .row:not(.head) .due::before {
     content: 'Due: ';
     font-weight: 600;
+    color: #333;
+  }
+  
+  .row:not(.head) .team {
+    display: block;
+    font-size: 12px;
+    margin: 6px 0 8px 35px;
     color: #666;
   }
   
   .row:not(.head) .team::before {
     content: 'Team: ';
     font-weight: 600;
-    color: #666;
+    color: #333;
   }
   
-  /* Mobile badges container */
+  /* Mobile badges */
   .row:not(.head) .badge {
-    order: 5;
     display: inline-block;
-    margin-right: 8px;
-    margin-top: 8px;
-    padding: 4px 8px;
-    font-size: 11px;
+    margin: 3px 6px 3px 0;
+    padding: 3px 6px;
+    font-size: 10px;
   }
   
-  /* Ensure badges appear in the same row */
-  .row:not(.head) .badge.stage {
-    margin-right: 8px;
-  }
-  
-  .row:not(.head) .badge.priority {
-    margin-right: 0;
-  }
 }
 
 /* Tablet adjustments */
 @media (max-width: 991px) and (min-width: 768px) {
   .task-page-wrapper {
-    padding: 12px;
+    padding: 0;
   }
   
   .row {
     grid-template-columns: 16px 1fr 80px 90px 75px 90px 32px;
-    padding: 8px 16px;
+    padding: 6px 16px;
     font-size: 12px;
+    min-height: 42px;
   }
   
   .row.head {
     padding: 6px 16px;
     font-size: 11px;
+    min-height: 32px;
   }
   
   .title {

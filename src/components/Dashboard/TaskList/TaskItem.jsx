@@ -9,12 +9,12 @@ const TaskItem = ({ task }) => {
   };
 
   return (
-    <div className={`task-item ${task.completed ? 'completed' : ''}`}>
+    <div className={`task-item ${task.stage === 'completed' ? 'completed' : ''}`}>
       <button 
-        className={`task-checkbox ${task.completed ? 'checked' : ''}`}
+        className={`task-checkbox ${task.stage === 'completed' ? 'checked' : ''}`}
         onClick={handleToggle}
       >
-        {task.completed && <span className="checkmark">✓</span>}
+        {task.stage === 'completed' && <span className="checkmark">✓</span>}
       </button>
 
       <div className="task-content">

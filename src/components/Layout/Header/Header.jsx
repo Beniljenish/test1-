@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
 import Button from '../../common/Button/Button';
 import Avatar from '../../common/Avatar/Avatar';
+import TaskCreate from '../../TaskCreate/TaskCreate';
 import './Header.css';
 
 const Header = () => {
   const { user } = useAuth();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
 
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
@@ -38,6 +40,7 @@ const Header = () => {
           variant="primary" 
           size="small"
           className="new-task-btn"
+          onClick={() => setIsTaskCreateOpen(true)}
         >
           <span className="btn-text-full">+ New task</span>
           <span className="btn-text-short">+</span>
@@ -75,6 +78,11 @@ const Header = () => {
           </button>
         </div>
       )}
+      
+      <TaskCreate 
+        isOpen={isTaskCreateOpen} 
+        onClose={() => setIsTaskCreateOpen(false)} 
+      />
     </header>
   );
 };

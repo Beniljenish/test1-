@@ -125,6 +125,46 @@
   background: #f2f2f2;
 }
 
+/* Email editing */
+.email-edit-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.email-edit-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.email-save-btn,
+.email-cancel-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.email-save-btn {
+  background: #ffe46c;
+  border-color: #ffe46c;
+}
+
+.email-save-btn:hover {
+  background: #fddc60;
+}
+
+.email-cancel-btn {
+  background: #fff;
+}
+
+.email-cancel-btn:hover {
+  background: #f2f2f2;
+}
+
 /* Centered action buttons */
 .action-buttons-centered {
   display: flex;
@@ -257,6 +297,23 @@
   }
 
   .change-email-btn {
+    padding: 12px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 100%;
+  }
+
+  .email-edit-block {
+    gap: 12px;
+  }
+
+  .email-edit-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .email-save-btn,
+  .email-cancel-btn {
     padding: 12px 16px;
     font-size: 14px;
     border-radius: 8px;

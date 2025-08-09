@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
         id: 1,
         email,
         name: email.split('@')[0] || 'User',
-        avatar: '/api/placeholder/32/32',
+        avatar: 'https://randomuser.me/api/portraits/men/30.jpg',
         loginTime: new Date().toISOString()
       };
       setUser(userData);
@@ -58,6 +58,23 @@ export const AuthProvider = ({ children }) => {
       return { success: true };
     }
     return { success: false, error: 'Please enter both email and password' };
+  };
+
+  const updateProfile = (profileData) => {
+    const updatedUser = {
+      ...user,
+      ...profileData
+    };
+    setUser(updatedUser);
+    localStorage.setItem('organizo_user', JSON.stringify(updatedUser));
+  };
+
+  const getProfile = () => {
+    return user || {
+      name: 'John Deere',
+      email: 'john.deere@email.com',
+      avatar: 'https://randomuser.me/api/portraits/men/30.jpg'
+    };
   };
 
   const logout = () => {
@@ -79,7 +96,9 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     loading,
-    debugAuth
+    debugAuth,
+    updateProfile,
+    getProfile
   };
 
   return (

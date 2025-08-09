@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import ProfilePage from './components/ProfilePage/ProfilePage.jsx';
 import NotificationPage from './components/NotificationPage/NotificationPage';
 import MyTask from './components/MyTask/MyTask';
+import TaskDetail from './components/TaskDetail/TaskDetail';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import Layout from './components/Layout/Layout';
 
@@ -82,6 +83,17 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Layout><MyTask /></Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tasks/:taskId"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <MyTask />
+              <TaskDetail />
+            </Layout>
           </ProtectedRoute>
         }
       />

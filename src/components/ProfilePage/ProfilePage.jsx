@@ -1,15 +1,99 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import './ProfilePage.css';
 
 export default function ProfilePage() {
+  const navigate = useNavigate();
+  const { getProfile, updateProfile } = useAuth();
   const [name, setName] = useState('');
-  const [email] = useState('john.deere@email.com');
-  const [photo, setPhoto] = useState('https://via.placeholder.com/100x100.png');
+  const [email, setEmail] = useState('');
+  const [photo, setPhoto] = useState('');
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
+  const [tempEmail, setTempEmail] = useState('');
+  const [originalData, setOriginalData] = useState({});
   const fileInput = useRef();
+
+  useEffect(() => {
+    // Load profile data from AuthContext
+    const profile = getProfile();
+    setName(profile.name);
+    setEmail(profile.email);
+    setPhoto(profile.avatar);
+    setTempEmail(profile.email);
+    setOriginalData({
+      name: profile.name,
+      email: profile.email,
+      photo: profile.avatar
+    });
+  }, [getProfile]);
 
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
-    if (file) setPhoto(URL.createObjectURL(file));
+    if (file) {
+      // Validate file size (500k max)
+      if (file.size > 500000) {
+        alert('File size must be less than 500KB');
+        return;
+      }
+      
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+      if (!validTypes.includes(file.type)) {
+        alert('Please upload a valid image file (jpg, png, gif)');
+        return;
+      }
+      
+      setPhoto(URL.createObjectURL(file));
+    }
+  };
+
+  const handleEmailChange = () => {
+    setTempEmail(email);
+    setIsEditingEmail(true);
+  };
+
+  const handleEmailSave = () => {
+    setEmail(tempEmail);
+    setIsEditingEmail(false);
+  };
+
+  const handleEmailCancel = () => {
+    setTempEmail(email);
+    setIsEditingEmail(false);
+  };
+
+  const handleSaveChanges = () => {
+    // Update profile in AuthContext
+    updateProfile({
+      name,
+      email,
+      avatar: photo
+    });
+    
+    // Update original data to current state
+    setOriginalData({
+      name,
+      email,
+      photo
+    });
+    
+    // In a real app, this would save to backend
+    alert('Profile updated successfully!');
+    
+    // Navigate to dashboard
+    navigate('/dashboard');
+  };
+
+  const handleCancel = () => {
+    // Reset to original data
+    setName(originalData.name);
+    setEmail(originalData.email);
+    setPhoto(originalData.photo);
+    setIsEditingEmail(false);
+    
+    // Navigate to dashboard
+    navigate('/dashboard');
   };
 
   return (
@@ -60,15 +144,33 @@ export default function ProfilePage() {
       <div className="profile-row-grid">
         <div className="profile-section-heading">Email address</div>
         <div className="email-row">
-          <span className="email-value">{email}</span>
-          <button className="change-email-btn">Change email address</button>
+          {isEditingEmail ? (
+            <div className="email-edit-block">
+              <input
+                type="email"
+                className="profile-input"
+                value={tempEmail}
+                onChange={(e) => setTempEmail(e.target.value)}
+                placeholder="Enter your email"
+              />
+              <div className="email-edit-buttons">
+                <button className="email-save-btn" onClick={handleEmailSave}>Save</button>
+                <button className="email-cancel-btn" onClick={handleEmailCancel}>Cancel</button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <span className="email-value">{email}</span>
+              <button className="change-email-btn" onClick={handleEmailChange}>Change email address</button>
+            </>
+          )}
         </div>
       </div>
 
       {/* Centered Action Buttons */}
       <div className="action-buttons-centered">
-        <button className="cancel-btn">Cancel</button>
-        <button className="save-btn">✓ Save changes</button>
+        <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
+        <button className="save-btn" onClick={handleSaveChanges}>✓ Save changes</button>
       </div>
     </div>
   );

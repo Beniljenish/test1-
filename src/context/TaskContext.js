@@ -12,11 +12,14 @@ export const useTask = () => {
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([
-    { id: 1, title: 'Finish monthly reporting', completed: false, dueDate: 'Today' },
-    { id: 2, title: 'Contract signing', completed: false, dueDate: 'Today' },
-    { id: 3, title: 'Market overview keynote', completed: false, dueDate: 'Tomorrow' },
-    { id: 4, title: 'Project research', completed: false, dueDate: 'Tomorrow' },
-    { id: 5, title: 'Prepare invoices', completed: false, dueDate: 'This week' }
+    { id: 1, title: 'Finish monthly reporting', dueDate: 'Today', stage: 'in-progress' },
+    { id: 2, title: 'Contract signing', dueDate: 'Today', stage: 'in-progress' },
+    { id: 3, title: 'Market overview keynote', dueDate: 'Today', stage: 'in-progress' },
+    { id: 4, title: 'Brand proposal', dueDate: 'Tomorrow', stage: 'not-started' },
+    { id: 5, title: 'Social media review', dueDate: 'Tomorrow', stage: 'in-progress' },
+    { id: 6, title: 'Report – Week 30', dueDate: 'Tomorrow', stage: 'not-started' },
+    { id: 7, title: 'Order check-ins', dueDate: 'This week', stage: 'in-progress' },
+    { id: 8, title: 'HR reviews', dueDate: 'This week', stage: 'not-started' }
   ]);
 
   const [categories] = useState([
@@ -90,15 +93,28 @@ export const TaskProvider = ({ children }) => {
 
   const toggleTask = (taskId) => {
     setTasks(tasks.map(task =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
+      task.id === taskId 
+        ? { 
+            ...task, 
+            stage: task.stage === 'completed' ? 'in-progress' : 'completed'
+          } 
+        : task
     ));
   };
 
   const addTask = (task) => {
     const newTask = {
-      id: tasks.length + 1,
-      ...task,
-      completed: false
+      id: Date.now(), // Use timestamp for unique ID
+      title: task.title,
+      dueDate: task.dueDate || 'Today',
+      stage: task.stage || 'not-started',
+      priority: task.priority || 'medium',
+      description: task.description || '',
+      team: task.team || 'Development',
+      avatar: task.avatar || 'https://randomuser.me/api/portraits/men/30.jpg',
+      completed: false,
+      createdAt: new Date().toISOString(),
+      ...task
     };
     setTasks([...tasks, newTask]);
   };

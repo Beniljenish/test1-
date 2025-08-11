@@ -5,7 +5,7 @@ import './ProfilePage.css';
 
 export default function ProfilePage() {
   const navigate = useNavigate();
-  const { getProfile, updateProfile } = useAuth();
+  const { getProfile, updateProfile, requestProfileChange, isSuperAdmin, isAdmin } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [photo, setPhoto] = useState('');
@@ -26,6 +26,33 @@ export default function ProfilePage() {
       email: profile.email,
       photo: profile.avatar
     });
+  }, [getProfile]);
+
+  // Refresh profile data when component mounts or when user returns
+  useEffect(() => {
+    const refreshProfileData = () => {
+      const profile = getProfile();
+      setName(profile.name);
+      setEmail(profile.email);
+      setPhoto(profile.avatar);
+      setTempEmail(profile.email);
+      setOriginalData({
+        name: profile.name,
+        email: profile.email,
+        photo: profile.avatar
+      });
+    };
+
+    // Listen for storage changes (when admin approves changes)
+    const handleStorageChange = () => {
+      refreshProfileData();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, [getProfile]);
 
   const handlePhotoUpload = (e) => {
@@ -64,25 +91,47 @@ export default function ProfilePage() {
   };
 
   const handleSaveChanges = () => {
-    // Update profile in AuthContext
-    updateProfile({
-      name,
-      email,
-      avatar: photo
-    });
+    const changes = {};
     
-    // Update original data to current state
-    setOriginalData({
-      name,
-      email,
-      photo
-    });
+    // Check what has changed
+    if (name !== originalData.name) {
+      changes.name = name;
+    }
+    if (email !== originalData.email) {
+      changes.email = email;
+    }
+    if (photo !== originalData.photo) {
+      changes.avatar = photo;
+    }
     
-    // In a real app, this would save to backend
-    alert('Profile updated successfully!');
+    // If no changes, just navigate back
+    if (Object.keys(changes).length === 0) {
+      alert('No changes detected.');
+      navigate('/dashboard');
+      return;
+    }
     
-    // Navigate to dashboard
-    navigate('/dashboard');
+    // Super admins and admins can update directly
+    if (isSuperAdmin() || isAdmin()) {
+      updateProfile(changes);
+      alert('Profile updated successfully!');
+      navigate('/dashboard');
+    } else {
+      // Regular users need approval for name/email changes
+      const needsApproval = changes.name || changes.email;
+      
+      if (needsApproval) {
+        // Submit for approval
+        requestProfileChange(changes);
+        alert('Your profile changes have been submitted for admin approval. You will be notified once reviewed.');
+        navigate('/dashboard');
+      } else {
+        // Avatar changes can be updated directly
+        updateProfile(changes);
+        alert('Profile updated successfully!');
+        navigate('/dashboard');
+      }
+    }
   };
 
   const handleCancel = () => {

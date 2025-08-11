@@ -466,7 +466,114 @@
   background: #0056b3;
 }
 
-/* Mobile responsiveness */
+/* Attachment styles */
+.attachment-actions {
+  margin-top: 12px;
+}
+
+.attachments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.add-attachment-btn {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.add-attachment-btn:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.no-attachments {
+  color: #999;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+.attachment-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.attachment-item:hover {
+  background: #f5f5f5;
+}
+
+.attachment-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.attachment-name {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.attachment-size {
+  display: block;
+  font-size: 12px;
+  color: #666;
+}
+
+.download-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.download-btn:hover {
+  opacity: 1;
+}
+
+.task-not-found {
+  text-align: center;
+  padding: 40px;
+}
+
+.task-not-found h2 {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.task-not-found button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Enhanced Mobile responsiveness */
 @media (max-width: 768px) {
   .task-detail-overlay {
     padding: 10px;
@@ -474,7 +581,13 @@
   
   .task-detail-modal {
     max-width: 100%;
-    height: 90vh;
+    height: 95vh;
+    border-radius: 12px;
+  }
+  
+  .task-detail-header {
+    padding: 12px 16px;
+    border-radius: 12px 12px 0 0;
   }
   
   .task-detail-content {
@@ -489,5 +602,218 @@
   
   .task-sidebar {
     order: 2;
+  }
+  
+  .task-title-section h1 {
+    font-size: 20px;
+  }
+  
+  .comment-item {
+    padding: 12px;
+  }
+  
+  .attachment-item {
+    padding: 12px;
+  }
+  
+  .attachment-name {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-detail-overlay {
+    padding: 5px;
+  }
+  
+  .task-detail-modal {
+    height: 98vh;
+    border-radius: 8px;
+  }
+  
+  .task-detail-header {
+    padding: 10px 12px;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .task-detail-content {
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .task-title-section h1 {
+    font-size: 18px;
+  }
+  
+  .task-assignee img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .comment-avatar {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .attachment-icon {
+    font-size: 16px;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+/* Tablet responsiveness */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .task-detail-modal {
+    max-width: 800px;
+  }
+  
+  .task-detail-content {
+    gap: 20px;
+    padding: 20px;
+  }
+}
+
+/* Admin Edit Functionality Styles */
+.edit-task-form {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.edit-title-input {
+  width: 100%;
+  font-size: 24px;
+  font-weight: 600;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  background: #f9fafb;
+  color: #1f2937;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.edit-title-input:focus {
+  border-color: #3b82f6;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.edit-description-section {
+  width: 100%;
+}
+
+.edit-description-textarea {
+  width: 100%;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  background: #f9fafb;
+  color: #1f2937;
+  outline: none;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: all 0.2s;
+}
+
+.edit-description-textarea:focus {
+  border-color: #3b82f6;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.edit-task-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-field label {
+  font-weight: 500;
+  color: #374151;
+  font-size: 14px;
+}
+
+.edit-input,
+.edit-select {
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 8px 12px;
+  background: #f9fafb;
+  color: #1f2937;
+  outline: none;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.edit-input:focus,
+.edit-select:focus {
+  border-color: #3b82f6;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Admin Control Buttons */
+.task-detail-nav .delete-btn {
+  background: #fee2e2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+.task-detail-nav .delete-btn:hover {
+  background: #fecaca;
+  border-color: #fca5a5;
+}
+
+.task-detail-nav .save-btn {
+  background: #dcfce7;
+  border-color: #bbf7d0;
+  color: #16a34a;
+}
+
+.task-detail-nav .save-btn:hover {
+  background: #bbf7d0;
+  border-color: #86efac;
+}
+
+.task-detail-nav .cancel-btn {
+  background: #fef3c7;
+  border-color: #fde68a;
+  color: #d97706;
+}
+
+.task-detail-nav .cancel-btn:hover {
+  background: #fde68a;
+  border-color: #fcd34d;
+}
+
+/* Mobile responsiveness for edit forms */
+@media (max-width: 768px) {
+  .edit-title-input {
+    font-size: 20px;
+    padding: 10px 14px;
+  }
+  
+  .edit-task-fields {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .edit-description-textarea {
+    min-height: 80px;
   }
 }

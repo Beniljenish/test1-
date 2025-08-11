@@ -4,7 +4,7 @@ import { useAuth } from '../../../context/AuthContext';
 import './Sidebar.css';
 
 const Sidebar = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false); // Mobile toggle state
 
@@ -49,10 +49,14 @@ const Sidebar = () => {
         </nav>
 
         <div className="sidebar-footer">
-          <NavLink to="/settings" className="sidebar-item" onClick={() => setIsOpen(false)}>
-            <span className="sidebar-icon">⚙️</span>
-            <span className="sidebar-label">Settings</span>
-          </NavLink>
+          {(user?.role === 'admin' || user?.role === 'super-admin') && (
+            <NavLink to="/settings" className="sidebar-item" onClick={() => setIsOpen(false)}>
+              <span className="sidebar-icon">⚙️</span>
+              <span className="sidebar-label">
+                {user?.role === 'super-admin' ? 'Super Admin' : 'Admin Settings'}
+              </span>
+            </NavLink>
+          )}
           <button
             className="sidebar-item"
             style={{ background: 'none', border: 'none', cursor: 'pointer' }}

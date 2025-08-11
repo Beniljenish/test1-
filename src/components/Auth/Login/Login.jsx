@@ -11,8 +11,11 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { login, user } = useAuth();
+  const { login, user, getAllUsers } = useAuth();
   const navigate = useNavigate();
+
+  // Get available users for quick login
+  const availableUsers = getAllUsers();
 
   // Debug logging
   console.log('Login component - User:', user ? 'logged in' : 'not logged in');
@@ -96,6 +99,34 @@ const Login = () => {
             />
           </div>
           {error && <div className="error-message">{error}</div>}
+          
+          {/* Quick login buttons for testing */}
+          <div className="quick-login" style={{ marginBottom: '15px' }}>
+            <p style={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>Quick Login (Testing):</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+              {availableUsers.map(userItem => (
+                <button
+                  key={userItem.id}
+                  type="button"
+                  onClick={() => {
+                    setEmail(userItem.email);
+                    setPassword('123');
+                  }}
+                  style={{
+                    padding: '4px 8px',
+                    fontSize: '10px',
+                    background: '#e5e7eb',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '4px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  {userItem.name}
+                </button>
+              ))}
+            </div>
+          </div>
+          
           <Button
             type="submit"
             variant="primary"

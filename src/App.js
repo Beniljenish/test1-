@@ -9,11 +9,26 @@ import ProfilePage from './components/ProfilePage/ProfilePage.jsx';
 import NotificationPage from './components/NotificationPage/NotificationPage';
 import MyTask from './components/MyTask/MyTask';
 import TaskDetail from './components/TaskDetail/TaskDetail';
+import AdminSettings from './components/AdminSettings/AdminSettings';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import Layout from './components/Layout/Layout';
 
 import './styles/globals.css';
 import './App.css';
+
+function App() {
+  return (
+    <AuthProvider>
+      <TaskProvider>
+        <Router>
+          <div className="App">
+            <AppRoutes />
+          </div>
+        </Router>
+      </TaskProvider>
+    </AuthProvider>
+  );
+}
 
 // Main App Routes Component (inside AuthProvider to access auth state)
 function AppRoutes() {
@@ -97,6 +112,14 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <Layout><AdminSettings /></Layout>
+          </ProtectedRoute>
+        }
+      />
 
       {/* Catch all route - redirect to login */}
       <Route 
@@ -104,20 +127,6 @@ function AppRoutes() {
         element={<Navigate to="/login" replace />} 
       />
     </Routes>
-  );
-}
-
-function App() {
-  return (
-    <AuthProvider>
-      <TaskProvider>
-        <Router>
-          <div className="App">
-            <AppRoutes />
-          </div>
-        </Router>
-      </TaskProvider>
-    </AuthProvider>
   );
 }
 

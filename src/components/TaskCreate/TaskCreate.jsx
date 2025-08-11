@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useTask } from '../../context/TaskContext';
+import { useAuth } from '../../context/AuthContext';
 import './TaskCreate.css';
 
 const TaskCreate = ({ isOpen, onClose }) => {
   const { addTask } = useTask();
+  const { user, getAllUsers } = useAuth();
   const [showCalendar, setShowCalendar] = useState(false);
-  const [showPriority, setShowPriority] = useState(false);
   const [calendarDate, setCalendarDate] = useState(new Date());
   const [formData, setFormData] = useState({
     title: '',
@@ -13,7 +14,8 @@ const TaskCreate = ({ isOpen, onClose }) => {
     notification: 'In 1 hour',
     priority: '',
     tags: '',
-    assignee: '',
+    assigneeId: user?.id || '',
+    assigneeName: user?.name || '',
     description: ''
   });
 
@@ -25,8 +27,10 @@ const TaskCreate = ({ isOpen, onClose }) => {
         dueDate: formData.dueDate,
         stage: 'not-started',
         priority: formData.priority || 'medium',
-        description: formData.description
-      });
+        description: formData.description,
+        assigneeId: formData.assigneeId,
+        assigneeName: formData.assigneeName
+      }, user);
       
       // Reset form
       setFormData({
@@ -35,7 +39,8 @@ const TaskCreate = ({ isOpen, onClose }) => {
         notification: 'In 1 hour',
         priority: '',
         tags: '',
-        assignee: '',
+        assigneeId: user?.id || '',
+        assigneeName: user?.name || '',
         description: ''
       });
       
@@ -54,11 +59,17 @@ const TaskCreate = ({ isOpen, onClose }) => {
     
     const selectedDate = new Date(date);
     
+    // Set time to start of day for accurate comparison
+    today.setHours(0, 0, 0, 0);
+    tomorrow.setHours(0, 0, 0, 0);
+    selectedDate.setHours(0, 0, 0, 0);
+    
     if (selectedDate.toDateString() === today.toDateString()) {
       return 'Today';
     } else if (selectedDate.toDateString() === tomorrow.toDateString()) {
       return 'Tomorrow';
     } else {
+      // For other dates, return the actual date for proper sorting
       const options = { month: 'short', day: 'numeric' };
       return selectedDate.toLocaleDateString('en-US', options);
     }
@@ -68,7 +79,6 @@ const TaskCreate = ({ isOpen, onClose }) => {
     const currentMonth = calendarDate.getMonth();
     const currentYear = calendarDate.getFullYear();
     const firstDay = new Date(currentYear, currentMonth, 1);
-    const lastDay = new Date(currentYear, currentMonth + 1, 0);
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());
     
@@ -217,83 +227,29 @@ const TaskCreate = ({ isOpen, onClose }) => {
               <span className="field-icon">📍</span>
               <span className="field-label">Priority</span>
               <div className="field-options">
-                {!formData.priority ? (
-                  <button 
-                    type="button" 
-                    className="add-btn" 
-                    onClick={() => setShowPriority(!showPriority)}
-                  >
-                    + Add priority
-                  </button>
-                ) : (
-                  <div className="priority-options">
-                    <button
-                      type="button"
-                      className={`option-btn priority-high ${formData.priority === 'high' ? 'active' : ''}`}
-                      onClick={() => handleChange('priority', 'high')}
-                    >
-                      High
-                    </button>
-                    <button
-                      type="button"
-                      className={`option-btn priority-medium ${formData.priority === 'medium' ? 'active' : ''}`}
-                      onClick={() => handleChange('priority', 'medium')}
-                    >
-                      Medium
-                    </button>
-                    <button
-                      type="button"
-                      className={`option-btn priority-low ${formData.priority === 'low' ? 'active' : ''}`}
-                      onClick={() => handleChange('priority', 'low')}
-                    >
-                      Low
-                    </button>
-                    <button 
-                      type="button" 
-                      className="remove-btn"
-                      onClick={() => handleChange('priority', '')}
-                    >
-                      ×
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-            
-            {showPriority && !formData.priority && (
-              <div className="priority-dropdown">
                 <button
                   type="button"
-                  className="priority-option high"
-                  onClick={() => {
-                    handleChange('priority', 'high');
-                    setShowPriority(false);
-                  }}
+                  className={`option-btn priority-high ${formData.priority === 'high' ? 'active' : ''}`}
+                  onClick={() => handleChange('priority', 'high')}
                 >
                   High
                 </button>
                 <button
                   type="button"
-                  className="priority-option medium"
-                  onClick={() => {
-                    handleChange('priority', 'medium');
-                    setShowPriority(false);
-                  }}
+                  className={`option-btn priority-medium ${formData.priority === 'medium' ? 'active' : ''}`}
+                  onClick={() => handleChange('priority', 'medium')}
                 >
                   Medium
                 </button>
                 <button
                   type="button"
-                  className="priority-option low"
-                  onClick={() => {
-                    handleChange('priority', 'low');
-                    setShowPriority(false);
-                  }}
+                  className={`option-btn priority-low ${formData.priority === 'low' ? 'active' : ''}`}
+                  onClick={() => handleChange('priority', 'low')}
                 >
                   Low
                 </button>
               </div>
-            )}
+            </div>
           </div>
 
           <div className="form-row">
@@ -311,7 +267,21 @@ const TaskCreate = ({ isOpen, onClose }) => {
               <span className="field-icon">👤</span>
               <span className="field-label">Assign</span>
               <div className="field-options">
-                <button type="button" className="add-btn">+ Add assignee</button>
+                <select 
+                  className="assignee-select"
+                  value={formData.assigneeId}
+                  onChange={(e) => {
+                    const selectedUser = getAllUsers().find(user => user.id.toString() === e.target.value);
+                    handleChange('assigneeId', parseInt(e.target.value));
+                    handleChange('assigneeName', selectedUser?.name || '');
+                  }}
+                >
+                  {getAllUsers().map(user => (
+                    <option key={user.id} value={user.id}>
+                      {user.name} ({user.email})
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
